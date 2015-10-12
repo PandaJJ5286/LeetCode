@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>258.Add Digits</title>
+	<script>
+	/*
+		Given a non-negative integer num, repeatedly add all its digits until the result has only one digit.
+		For example:
+
+		Given num = 38, the process is like: 3 + 8 = 11, 1 + 1 = 2. Since 2 has only one digit, return it.
+
+		Follow up:
+		Could you do it without any loop/recursion in O(1) runtime?
+
+		Hint:
+
+		A naive implementation of the above process is trivial. Could you come up with other methods?
+		What are all the possible results?
+		How do they occur, periodically or randomly?
+		You may find this Wikipedia article useful.
+	*/
+		function addDigits(num){
+			var addNum = 0;
+			if(num===0){
+				return 0;
+			}else{
+				while(num/10!==0){
+					addNum += num%10;
+					// JavaScrpt的“/”取整运算与其他语言不同，得到的是真实的小数。需要应用Math.floor()向上取整方法，才能获得取整结果。
+					num = Math.floor(num/10);
+					// console.log("num="+num+";addNum="+addNum);
+					if(num/10===0 && addNum % 10 !== 0 && Math.floor(addNum/10) === 0){ 
+						return addNum; 
+						
+					}
+				}
+			}
+			while(Math.floor(addNum/10)!==0){
+				// 用arguments.callee方法实现递归，而不用函数名递归，便于维护
+				var results = arguments.callee(addNum);
+				if(results % 10 !== 0 && Math.floor(results/10) === 0){ 
+					return results; 
+					
+				}
+				if(Math.floor(addNum/10)!==0) break;
+				
+			}
+
+		}
+		var result = addDigits(1289);
+		alert(result);
+	</script>
+</head>
+<body>
+	<a href="https://leetcode.com/problems/add-digits/">Add Digits Demo</a>
+	
+</body>
+</html>
