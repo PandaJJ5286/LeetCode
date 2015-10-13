@@ -50,6 +50,16 @@
 		}
 		var result = addDigits(1289);
 		alert(result);
+
+
+		// 数据根（digit-root）性质
+		// 数据根公式    a的数根b = ( a - 1) % 9 + 1 其中，先减1再取模是为了避免9整除的数取模得到0而影响最终结果。
+		// 这种解法没有应用循环，递归的方法，时间复杂度为O(1).
+		function addDigits_Efficient(num){
+			var result = (num-1)%9+1;
+			return result;
+		}
+
 	</script>
 </head>
 <body>
