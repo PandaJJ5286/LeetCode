@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>205.Isomorphic Strings</title>
+	<script>
+		/*
+			Given two strings s and t, determine if they are isomorphic.
+
+			Two strings are isomorphic if the characters in s can be replaced to get t.
+
+			All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character but a character may map to itself.
+
+			For example,
+			Given "egg", "add", return true.
+
+			Given "foo", "bar", return false.
+
+			Given "paper", "title", return true.
+
+			Note:
+			You may assume both s and t have the same length.
+		*/
+
+		/*
+			这个问题是字符串同构问题，遍历s将s中每个出现的字母与t相应位置的字母建立映射关系
+			如果s[i]已经出现过，则检查映射是否与已有映射相同，如果不同则不同构；
+			保证了s向t是同构的，同时需要确定t向s也同构，再由t向s遍历一次即可。
+			Given "ab", "aa", return false.
+
+			Given "paper", "titl", return false.
+		*/
+
+		/**
+		 * @param {string} s
+		 * @param {string} t
+		 * @return {boolean}
+		 */
+		var isIsomorphic = function(s, t) {
+		    
+		    // 确定两者长度是否相同，相同继续，不能则不同构
+		    if(s.length != t.length) return false;
+
+		    var map = {};
+
+		    for(var i = 0,len=s.length;i<len;i++){
+		    	if(!map.hasOwnProperty(s[i])){
+		    		map[s[i]] = t[i];
+		    	}else if(map[s[i]] != t[i]){
+		    		return false;
+		    	}
+		    }
+
+		    map = {};
+		    for(i = 0; i<len; i++){
+		    	if(!map.hasOwnProperty(t[i])){
+		    		map[t[i]] = s[i];
+		    	}else if(map[t[i]] != s[i]){
+		    		return false;
+		    	}
+		    }
+
+		    return true;
+		};
+
+
+		alert(isIsomorphic("paper","tite"));
+	</script>
+</head>
+<body>
+	<a href="https://leetcode.com/problems/isomorphic-strings/">205.Isomorphic Strings</a>
+</body>
+</html>
