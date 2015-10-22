@@ -41,17 +41,27 @@
 		    // 确定两者长度是否相同，相同继续，不能则不同构
 		    if(s.length != t.length) return false;
 
+		    // 定义一个对象保存映射关系
 		    var map = {};
 
 		    for(var i = 0,len=s.length;i<len;i++){
+		    	
+		    	// map.hasOwnProperty("")方法确定是否存在属性s[i]，即s[i]是否出现过，s[i]取得第i个字符。
 		    	if(!map.hasOwnProperty(s[i])){
+
+		    		// 如果字符没有出现过，建立s[i]到t[i]的映射，即键值对。
 		    		map[s[i]] = t[i];
 		    	}else if(map[s[i]] != t[i]){
+		    		// 字符s[i]已经做过映射，并且与已有映射不同，则返回false，不同构。
 		    		return false;
 		    	}
 		    }
 
+		    // 清除映射关系
 		    map = {};
+
+		    // 进行t向s的映射，保证No two characters may map to the same character
+		    // Given "ab", "aa", return false.
 		    for(i = 0; i<len; i++){
 		    	if(!map.hasOwnProperty(t[i])){
 		    		map[t[i]] = s[i];
