@@ -19,7 +19,7 @@
 		*/
 
 		/*
-			
+			这个问题跟Isomorphic String问题其实本质是一样的，只不过这个变成了字符和字符串进行映射，程序思想一致。
 		*/
 
 		/**
@@ -29,7 +29,43 @@
 		 */
 		var wordPattern = function(pattern, str) {
 		    
+			// 定义参数,pieces保存字符串分割结果，map保存映射关系
+			var pieces = [],map = {};
+			// 将str分割
+			pieces = str.split(" ");
+		    // 确定两者长度是否相同，相同继续，不能则不同构
+		    if(pieces.length != pattern.length) return false;
+
+		    for(var i = 0,len=pieces.length;i<len;i++){
+		    	
+		    	// map.hasOwnProperty("")方法确定是否存在属性pieces[i]，即pieces[i]是否出现过，pieces[i]取得第i个字符。
+		    	if(!map.hasOwnProperty(pieces[i])){
+
+		    		// 如果字符没有出现过，建立pieces[i]到pattern[i]的映射，即键值对。
+		    		map[pieces[i]] = pattern[i];
+		    	}else if(map[pieces[i]] != pattern[i]){
+		    		// 字符pieces[i]已经做过映射，并且与已有映射不同，则返回false，不同构。
+		    		return false;
+		    	}
+		    }
+
+		    // 清除映射关系
+		    map = {};
+
+		    // 进行pattern向pieces的映射，保
+		    // Given "ab", "dog dog", return false.
+		    for(i = 0; i<len; i++){
+		    	if(!map.hasOwnProperty(pattern[i])){
+		    		map[pattern[i]] = pieces[i];
+		    	}else if(map[pattern[i]] != pieces[i]){
+		    		return false;
+		    	}
+		    }
+
+		    return true;
 		};
+
+		alert(wordPattern("abba","ab bc bc ab"));
 	</script>
 </head>
 <body>
